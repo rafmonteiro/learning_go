@@ -8,4 +8,5 @@ func main() {
 	hand.print()
 	fmt.Println("The remaininig deck is: ")
 	remainingDeck.print()
+	fmt.Println(cards.toString())
 }
