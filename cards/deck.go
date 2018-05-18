@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"math/rand"
 	"os"
 	"strings"
 )
@@ -15,8 +16,8 @@ type deck []string
 func newDeck() deck {
 	cards := deck{}
 
-	cardSuits := []string{"Spades", "Diamonds"}
-	cardValues := []string{"Ace", "Two"}
+	cardSuits := []string{"Spades", "Diamonds", "Hearts"}
+	cardValues := []string{"Ace", "Two", "Three", "Four", "Five"}
 
 	for _, suit := range cardSuits {
 		for _, value := range cardValues {
@@ -55,4 +56,12 @@ func newDeckFromFile(filename string) deck {
 	}
 	s := strings.Split(string(bs), ",")
 	return deck(s)
+}
+
+func (d deck) shuffle() {
+	for i := range d {
+		newPosition := rand.Intn(len(d) - 1)
+		// swap the elements
+		d[i], d[newPosition] = d[newPosition], d[i]
+	}
 }
