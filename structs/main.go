@@ -13,13 +13,13 @@ type contactInfo struct {
 	zipCode int
 }
 
+func (pointerToPerson *person) updateMe(newFirstName string) {
+	(*pointerToPerson).firstName = newFirstName
+}
+
 func (p person) print() {
 	fmt.Printf("%+v", p)
 
-}
-
-func (p person) updateMe(newFirstName string) {
-	p.firstName = newFirstName
 }
 
 func main() {
@@ -31,6 +31,7 @@ func main() {
 			zipCode: 6400,
 		},
 	}
-	jim.updateMe("Jimmy")
+	jimPointer := &jim
+	jimPointer.updateMe("Jimmy")
 	jim.print()
 }
