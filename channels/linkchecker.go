@@ -10,11 +10,11 @@ func checkLink(link string, c chan string) {
 	if err != nil {
 		fmt.Println(link, "might be down!")
 		// send msg into the channel
-		c <- "Might be down I think"
+		c <- link
 		return
 	}
 	fmt.Println(link, "is up!")
-	c <- "It's UP"
+	c <- link
 }
 
 func main() {
@@ -31,9 +31,9 @@ func main() {
 		// creates go routines
 		go checkLink(link, c)
 	}
-	// this for loop works like a while!
-	for i := 0; i < len(links); i++ {
-		fmt.Println(<-c)
+	// runs indefinately
+	for {
+		go checkLink(<-c, c) // still blocking but it won't die
 	}
 	//fmt.Println(<-c) // <--- this is a blocking code.
 }
