@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"time"
 )
 
 func checkLink(link string, c chan string) {
@@ -15,6 +16,7 @@ func checkLink(link string, c chan string) {
 	}
 	fmt.Println(link, "is up!")
 	c <- link
+
 }
 
 func main() {
@@ -31,9 +33,13 @@ func main() {
 		// creates go routines
 		go checkLink(link, c)
 	}
-	// runs indefinately
-	for {
-		go checkLink(<-c, c) // still blocking but it won't die
+	// alternative for loop
+	for l := range c {
+		// function literal!!!
+		go func() {
+			time.Sleep(5 * time.Second)
+			checkLink(l, c)
+		}()
 	}
 	//fmt.Println(<-c) // <--- this is a blocking code.
 }
