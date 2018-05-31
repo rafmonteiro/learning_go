@@ -36,10 +36,10 @@ func main() {
 	// alternative for loop
 	for l := range c {
 		// function literal!!!
-		go func() {
+		go func(link string) {
 			time.Sleep(5 * time.Second)
-			checkLink(l, c)
-		}()
+			checkLink(link, c)
+		}(l)
 	}
-	//fmt.Println(<-c) // <--- this is a blocking code.
+
 }

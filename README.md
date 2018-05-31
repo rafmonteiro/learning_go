@@ -1,8 +1,3 @@
-# learning go
-Cards will have the following methods:
-- Create new deck
-- print a deck of cards
-- shuffle
-- create(deal) a hand of cards
-- save to a file
-- load from a file.
+* I'm using this repo to track what I'm learning about Go.
+- basic concepts [100%] 
+- web development with Go [%1]
