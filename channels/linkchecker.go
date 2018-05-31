@@ -19,7 +19,7 @@ func checkLink(link string, c chan string) {
 
 func main() {
 	links := []string{
-		"http://googleoooo423o4o34.com",
+		"http://google.com",
 		"http://facebook.com",
 		"http://www.twohat.com",
 		"http://amazon.com",
@@ -32,5 +32,5 @@ func main() {
 		go checkLink(link, c)
 	}
 	// receives msg from the channel
-	fmt.Println(<-c)
+	fmt.Println(<-c) // <--- this is a blocking code.
 }
