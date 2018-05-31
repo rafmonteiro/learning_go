@@ -31,6 +31,9 @@ func main() {
 		// creates go routines
 		go checkLink(link, c)
 	}
-	// receives msg from the channel
-	fmt.Println(<-c) // <--- this is a blocking code.
+	// this for loop works like a while!
+	for i := 0; i < len(links); i++ {
+		fmt.Println(<-c)
+	}
+	//fmt.Println(<-c) // <--- this is a blocking code.
 }
