@@ -7,8 +7,8 @@
 
 <body>
     <ul>
-        {{range $index, $element := .}}
-        <li> {{$index}} - {{$element}}</li>
+        {{range $key, $value := .}}
+        <li> {{$key}} - {{$value}}</li>
         {{end}}
     </ul>
 </body>
