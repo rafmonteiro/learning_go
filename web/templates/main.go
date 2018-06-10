@@ -19,7 +19,15 @@ func init() {
 }
 
 func monthDayYear(t time.Time) string {
-	return t.Format("01-02-2006")
+	// 01 = month
+	// 02 = day
+	// 03 = hour
+	// 04 = minutes
+	// 05 = seconds
+	// 06 = year
+	// 07 = timezone
+	// MST = I don't remember.
+	return t.Format("01-02-2006 03:04 05 -0700 MST")
 }
 
 var fm = template.FuncMap{
