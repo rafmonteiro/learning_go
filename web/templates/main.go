@@ -1,42 +1,42 @@
 package main
 
 import (
-	"html/template"
 	"log"
 	"os"
-	"time"
+	"text/template"
 )
+
+type person struct {
+	Name string
+	Age  int
+}
+
+func (p person) SomeProcesssing() int {
+	return 9
+}
+
+func (p person) AgeDbl() int {
+	return p.Age * 2
+}
+
+func (p person) TakesArg(x int) int {
+	return x * 2
+}
 
 var tpl *template.Template
 
-// var fm = template.FuncMap{
-// 	"uc": strings.ToUpper,
-// 	"ft": firstThree,
-// }
-
 func init() {
-	tpl = template.Must(template.New("").Funcs(fm).ParseFiles("tpl.gohtml"))
-}
-
-func monthDayYear(t time.Time) string {
-	// 01 = month
-	// 02 = day
-	// 03 = hour
-	// 04 = minutes
-	// 05 = seconds
-	// 06 = year
-	// 07 = timezone
-	// MST = I don't remember.
-	return t.Format("01-02-2006 03:04 05 -0700 MST")
-}
-
-var fm = template.FuncMap{
-	"fdateMDY": monthDayYear,
+	tpl = template.Must(template.ParseFiles("tpl.gohtml"))
 }
 
 func main() {
 
-	err := tpl.ExecuteTemplate(os.Stdout, "tpl.gohtml", time.Now())
+	p := person{
+		Name: "James Bond",
+		Age:  42,
+	}
+
+	err := tpl.Execute(os.Stdout, p)
 	if err != nil {
 		log.Fatalln(err)
 	}
