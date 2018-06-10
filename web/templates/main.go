@@ -4,39 +4,31 @@ import (
 	"html/template"
 	"log"
 	"os"
-	"strings"
+	"time"
 )
 
 var tpl *template.Template
 
-var fm = template.FuncMap{
-	"uc": strings.ToUpper,
-	"ft": firstThree,
-}
+// var fm = template.FuncMap{
+// 	"uc": strings.ToUpper,
+// 	"ft": firstThree,
+// }
 
 func init() {
-	//tpl = template.Must(template.ParseFiles("tpl.gohtml"))
 	tpl = template.Must(template.New("").Funcs(fm).ParseFiles("tpl.gohtml"))
 }
-func firstThree(s string) string {
-	s = strings.TrimSpace(s)
-	s = s[:3]
-	return s
+
+func monthDayYear(t time.Time) string {
+	return t.Format("01-02-2006")
 }
 
-type sage struct {
-	Name  string
-	Motto string
+var fm = template.FuncMap{
+	"fdateMDY": monthDayYear,
 }
 
 func main() {
 
-	g := sage{
-		Name:  "Gandhi",
-		Motto: "Be the change",
-	}
-
-	err := tpl.ExecuteTemplate(os.Stdout, "tpl.gohtml", g)
+	err := tpl.ExecuteTemplate(os.Stdout, "tpl.gohtml", time.Now())
 	if err != nil {
 		log.Fatalln(err)
 	}
